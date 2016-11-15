@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Bluetooth Popup Quiz</string>
+    <string name="send_to">Share</string>
+    <string name="blu_notfound_inlist">No bluetooth shareable apps found</string>
+</resources>

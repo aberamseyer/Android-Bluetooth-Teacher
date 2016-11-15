@@ -1,0 +1,54 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    card_view:cardCornerRadius="4dp">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--<fragment-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:name="com.androidtutorialpoint.cardviewtutorial.CardFragment"-->
+            <!--android:id="@+id/questionFragment"-->
+            <!--android:layout_weight=".75" />-->
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_weight=".25">
+
+            <TextView
+                android:text="TextView"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:id="@+id/questionTypeText"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:layout_weight=".75" />
+
+            <CheckBox
+                android:text="CheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/cardCheckBox"
+                android:layout_weight=".25" />
+
+            <Button
+                android:text="Send"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:id="@+id/sendButton"
+                android:layout_weight=".25" />
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

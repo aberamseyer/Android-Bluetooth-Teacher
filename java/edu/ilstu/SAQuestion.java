@@ -8,22 +8,12 @@ import android.widget.CheckBox;
 
 public class SAQuestion {
     private String question;
-    private CheckBox checkBox;
 
     public SAQuestion() {
     }
 
-    public SAQuestion(String question, CheckBox checkBox) {
+    public SAQuestion(String question) {
         this.question = question;
-        this.checkBox = checkBox;
-    }
-
-    public CheckBox getCheckBox() {
-        return checkBox;
-    }
-
-    public void setCheckBox(CheckBox checkBox) {
-        this.checkBox = checkBox;
     }
 
     public String getQuestion() {
@@ -43,6 +33,6 @@ public class SAQuestion {
 
     @Override
     public String toString() {
-        return "" + question + "?\n\n";
+        return "" + question + "?\n";
     }
 }

@@ -17,9 +17,9 @@ package edu.ilstu;
 
 public class CardFragment extends Fragment {
 
-    public static ArrayList<SAQuestion> listitems = new ArrayList<>();
+    public static ArrayList<SAQuestion> itemsToSend = new ArrayList<>();
     RecyclerView MyRecyclerView;
-    public static String MCQuestions[] = {"MCSAQuestion 1","MCSAQuestion 2","MCSAQuestion 3","MCSAQuestion 4","MCSAQuestion 5","MCSAQuestion 6","MCSAQuestion 7"};
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,8 +37,8 @@ public class CardFragment extends Fragment {
         MyRecyclerView.setHasFixedSize(true);
         LinearLayoutManager MyLayoutManager = new LinearLayoutManager(getActivity());
         MyLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        if (listitems.size() > 0 & MyRecyclerView != null) {
-            MyRecyclerView.setAdapter(new MyAdapter(listitems));
+        if (itemsToSend.size() > 0 & MyRecyclerView != null) {
+            MyRecyclerView.setAdapter(new MyAdapter(itemsToSend));
         }
         MyRecyclerView.setLayoutManager(MyLayoutManager);
 
@@ -48,8 +48,10 @@ public class CardFragment extends Fragment {
                     @Override public void onItemClick(View view, int position) {
                         Log.i("card touched", "at position: " + position);
                         CheckBox cb = (CheckBox)view.findViewById(R.id.cardCheckBox);
-                        if(cb.isChecked())
+                        if(cb.isChecked()) {
                             cb.setChecked(false);
+//                            itemsToSend.remove();
+                        }
                         else
                             cb.setChecked(true);
                     }
@@ -89,7 +91,7 @@ public class CardFragment extends Fragment {
         @Override
         public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-            holder.questionTypeText.setText(list.get(position).getQuestion());
+            holder.questionTypeText.setText(list.get(position).toString());
 
         }
 
@@ -110,18 +112,12 @@ public class CardFragment extends Fragment {
     }
 
     public void initializeList() {
-        listitems.clear();
-
-        for(int i =0;i<7;i++){
-
-            MCQuestion item = new MCQuestion();
-            item.setA("a");
-            item.setB("b");
-            item.setC("c");
-            item.setD("d");
-            item.setQuestion("What is a letter?");
-            listitems.add(item);
-        }
-
+        itemsToSend.clear();
+        // Predefined multiple-choice questions
+        itemsToSend.add(new MCQuestion("What grade do you plan to get in this class?", "A", "B", "C", "D"));
+        itemsToSend.add(new MCQuestion("What is your favorite color", "Red", "Green", "Blue", "none of these"));
+        itemsToSend.add(new MCQuestion("how old are you", "18", "19", "20", "21"));
+        itemsToSend.add(new MCQuestion("What is your major?", "Computer Science", "IS", "Something else", "not sure yet"));
+        itemsToSend.add(new MCQuestion("What kind of housing do you live in?", "Dorm", "Apartment", "House", "I'm Homeless"));
     }
 }

@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 animateFab();
                 Log.i("aramsey", "fab 1 tapped");
                 //TODO create an activity/layout that can add a written question
-//                i = new Intent(this,CreateAlarmActivity.class);
+//                Intent i = new Intent(this,AddQuestionActivity.class);
 //                startActivity(i);
                 break;
             case R.id.fab2send:
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-        for(SAQuestion q : CardFragment.listitems) {  //TODO find a way to get the card that was tapped and access that part of the array
+        for(SAQuestion q : CardFragment.itemsToSend) {  // TODO find a way to get the card that was tapped and access that part of the array
           //  if(q.getCheckBox().isChecked()) // need to create the logic to assign the CheckBox objects to each question
                 contentToSend += q.toString();
         }

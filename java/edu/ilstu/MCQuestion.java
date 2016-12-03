@@ -12,8 +12,8 @@ public class MCQuestion extends SAQuestion {
 
     public MCQuestion() {}
 
-    public MCQuestion(String question, CheckBox checkBox, String a, String b, String c, String d) {
-        super(question, checkBox);
+    public MCQuestion(String question, String a, String b, String c, String d) {
+        super(question);
         this.a = a;
         this.b = b;
         this.c = c;
@@ -63,19 +63,9 @@ public class MCQuestion extends SAQuestion {
     }
 
     @Override
-    public CheckBox getCheckBox() {
-        return super.getCheckBox();
-    }
-
-    @Override
-    public void setCheckBox(CheckBox checkBox) {
-        super.setCheckBox(checkBox);
-    }
-
-    @Override
     public String toString() {
         super.formatQuestion();
-        return "" + super.getQuestion() + "?\n" + "\tA: " + a + "\n\tB: " + b + "\n\tC: " + c + "\n\tD: " + d + "\n\n";
+        return "" + super.getQuestion() + "?\n" + "\tA: " + a + "\n\tB: " + b + "\n\tC: " + c + "\n\tD: " + d + "\n";
     }
 }
 

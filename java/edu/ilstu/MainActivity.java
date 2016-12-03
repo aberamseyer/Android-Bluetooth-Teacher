@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.FileObserver;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +19,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -110,45 +118,70 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.i("aramsey", btAdapter.toString());
 
         Context staticContext = Project3Bluetooth.getAppContext();
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SEND);
-        intent.setType("text/plain");
         String contentToSend = "";
-
-
-
-
-
         for(SAQuestion q : CardFragment.itemsToSend) {
             if(q != null)
                 contentToSend += q.toString();
         }
-        intent.putExtra(Intent.EXTRA_TEXT, contentToSend);
 
-        final PackageManager pm = staticContext.getPackageManager();
-        List<ResolveInfo> appsList = pm.queryIntentActivities(intent, 0);
 
-        if(appsList.size() > 0){
-            String packageName = null;
-            String className = null;
-            boolean found = false;
-
-            for(int i = 0; i < appsList.size(); i++){
-                // find bluetooth in the list of activities
-                packageName = appsList.get(i).activityInfo.packageName;
-                if(packageName.equals("com.android.bluetooth")){
-                    className = appsList.get(i).activityInfo.name;
-                    found = true;
-                    break;
+        try {
+            //Create a file and write the String to it
+            BufferedWriter out;
+            final String filePath = Environment.getExternalStorageDirectory().getPath() + "/wadus.txt";
+            FileWriter fileWriter = new FileWriter(filePath);
+            out = new BufferedWriter(fileWriter);
+            out.write(contentToSend);
+            out.close();
+            //Access the file and share it through the original intent
+            File file = new File(filePath);
+            Intent sendIntent = new Intent(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+            sendIntent.setType("text/plain");
+            //Create a file observer to monitor the access to the file
+            FileObserver fobsv = new FileObserver(filePath) {
+                @Override
+                public void onEvent(int event, String path) {
+                    if (event == FileObserver.CLOSE_NOWRITE) {
+                        //The file was previously written to, now it's been sent and closed
+                        //we can safely delete it.
+                        File file = new File(filePath);
+                        file.delete();
+                    }
                 }
-            }
-            if(! found){
-                Toast.makeText(staticContext, R.string.blu_notfound_inlist,
-                        Toast.LENGTH_SHORT).show();
-            }
+            };
+            fobsv.startWatching();
 
-            intent.setClassName(packageName, className);
-            startActivity(intent);
+            final PackageManager pm = staticContext.getPackageManager();
+            List<ResolveInfo> appsList = pm.queryIntentActivities(sendIntent, 0);
+
+            if (appsList.size() > 0) {
+                String packageName = null;
+                String className = null;
+                boolean found = false;
+
+                for (int i = 0; i < appsList.size(); i++) {
+                    // find bluetooth in the list of activities
+                    packageName = appsList.get(i).activityInfo.packageName;
+                    if (packageName.equals("com.android.bluetooth")) {
+                        className = appsList.get(i).activityInfo.name;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    Toast.makeText(staticContext, R.string.blu_notfound_inlist,
+                            Toast.LENGTH_SHORT).show();
+                }
+
+                sendIntent.setClassName(packageName, className);
+                startActivity(sendIntent);
+                Log.i("aramsey", "supposedly sent the file");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

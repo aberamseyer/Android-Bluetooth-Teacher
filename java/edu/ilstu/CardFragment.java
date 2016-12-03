@@ -1,9 +1,5 @@
 package edu.ilstu;
 
-        import android.bluetooth.BluetoothAdapter;
-        import android.content.Intent;
-        import android.content.pm.PackageManager;
-        import android.content.pm.ResolveInfo;
         import android.os.Bundle;
         import android.support.annotation.Nullable;
         import android.support.v4.app.Fragment;
@@ -13,27 +9,23 @@ package edu.ilstu;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
-        import android.widget.Button;
         import android.widget.CheckBox;
         import android.widget.TextView;
-        import android.widget.Toast;
 
         import java.util.ArrayList;
-        import java.util.List;
 
 
 public class CardFragment extends Fragment {
 
-    ArrayList<WonderModel> listitems = new ArrayList<>();
+    public static ArrayList<SAQuestion> listitems = new ArrayList<>();
     RecyclerView MyRecyclerView;
-    String Wonders[] = {"Question 1","Question 2","Question 3","Question 4","Question 5","Question 6","Question 7"};
-    RecyclerView recyclerView;
+    public static String MCQuestions[] = {"MCSAQuestion 1","MCSAQuestion 2","MCSAQuestion 3","MCSAQuestion 4","MCSAQuestion 5","MCSAQuestion 6","MCSAQuestion 7"};
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initializeList();
-        getActivity().setTitle("7 Wonders of the Modern World");
+        getActivity().setTitle("Bluetooth Popup Quiz");
     }
 
     @Override
@@ -63,7 +55,7 @@ public class CardFragment extends Fragment {
                     }
 
                     @Override public void onLongItemClick(View view, int position) {
-                        // do whatever
+                        onItemClick(view, position);
                     }
                 })
         );
@@ -79,9 +71,9 @@ public class CardFragment extends Fragment {
     }
 
     public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
-        private ArrayList<WonderModel> list;
+        private ArrayList<SAQuestion> list;
 
-        public MyAdapter(ArrayList<WonderModel> Data) {
+        public MyAdapter(ArrayList<SAQuestion> Data) {
             list = Data;
         }
 
@@ -97,7 +89,7 @@ public class CardFragment extends Fragment {
         @Override
         public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-            holder.questionTypeText.setText(list.get(position).getCardName());
+            holder.questionTypeText.setText(list.get(position).getQuestion());
 
         }
 
@@ -110,58 +102,10 @@ public class CardFragment extends Fragment {
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView questionTypeText;
-        public Button sendButton; //TODO remove sendButton from layout and code, has been replaced with fab2send in MainActivity.java
-
 
         public MyViewHolder(View v) {
             super(v);
             questionTypeText = (TextView) v.findViewById(R.id.questionTypeText);
-            sendButton = (Button) v.findViewById(R.id.sendButton);
-
-
-            sendButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.i("blutooth", "bt button tapped");
-
-                    BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
-
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_SEND);
-                    intent.setType("text/plain");
-                    intent.putExtra(Intent.EXTRA_TEXT, Wonders[0]); //TODO find a way to get the card that was tapped and access that part of the array
-
-                    final PackageManager pm = getActivity().getApplicationContext().getPackageManager();
-                    List<ResolveInfo> appsList = pm.queryIntentActivities(intent, 0);
-
-                    if(appsList.size() > 0){
-                        String packageName = null;
-                        String className = null;
-                        boolean found = false;
-
-                        for(int i = 0; i < appsList.size(); i++){
-                            // find bluetooth in the list of activities
-                            packageName = appsList.get(i).activityInfo.packageName;
-                            if(packageName.equals("com.android.bluetooth")){
-                                className = appsList.get(i).activityInfo.name;
-                                found = true;
-                                break;
-                            }
-                        }
-                        if(! found){
-                            Toast.makeText(getContext(), R.string.blu_notfound_inlist,
-                                    Toast.LENGTH_SHORT).show();
-                            getActivity().finish();
-                        }
-
-                        intent.setClassName(packageName, className);
-                        startActivity(intent);
-                    }
-                }
-            });
-
-
-
         }
     }
 
@@ -170,10 +114,12 @@ public class CardFragment extends Fragment {
 
         for(int i =0;i<7;i++){
 
-            WonderModel item = new WonderModel();
-            item.setCardName(Wonders[i]);
-            item.setIsfav(0);
-            item.setIsturned(0);
+            MCQuestion item = new MCQuestion();
+            item.setA("a");
+            item.setB("b");
+            item.setC("c");
+            item.setD("d");
+            item.setQuestion("What is a letter?");
             listitems.add(item);
         }
 

@@ -1,5 +1,10 @@
 package edu.ilstu;
 
+import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -9,6 +14,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -34,19 +42,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
 
+        fab.setOnClickListener(this);
+        fab1.setOnClickListener(this);
+        fab2.setOnClickListener(this);
+
         if (fragment == null) {
             fragment = new CardFragment();
-            ;
             fm.beginTransaction()
                     .add(R.id.fragmentContainer, fragment)
                     .commit();
 
-
         }
-
-        fab.setOnClickListener(this);
-        fab1.setOnClickListener(this);
-        fab2.setOnClickListener(this);
 
     }
 
@@ -66,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             fab1.setClickable(true);
             fab2.setClickable(true);
             isFabOpen = true;
-            System.out.println("opened the big one");
         }
     }
 
@@ -75,22 +80,78 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.fab:
                 animateFab();
-                Log.d("aramsey", "Big fAB tapped");
+                Log.i("aramsey", "Big fAB tapped");
                 break;
             case R.id.fab1edit:
-                Log.d("aramsey", "fab 1 tapped");
                 animateFab();
-                //TODO create an activity/layout that can add a writtent question
+                Log.i("aramsey", "fab 1 tapped");
+                //TODO create an activity/layout that can add a written question
 //                i = new Intent(this,CreateAlarmActivity.class);
 //                startActivity(i);
                 break;
             case R.id.fab2send:
-                Log.d("aramsey", "fab 2 tapped");
                 animateFab();
-                //TODO port send code over from CardFragment.java
+                Log.i("aramsey", "fab 2 tapped");
+                sendQuestions(v);
 //                i = new Intent(this,CreateTimerActivity.class);
 //                startActivity(i);
                 break;
+            default:
+                Log.i("aramsey", "idk what you tapped");
+                break;
+        }
+    }
+
+    // Send the selected questions to a bluetooth devices
+    private void sendQuestions(View v) {
+        Log.i("blutooth", "bt button tapped");
+
+        BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
+        Log.i("aramsey", btAdapter.toString());
+
+        Context staticContext = Project3Bluetooth.getAppContext();
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        String contentToSend = "";
+
+
+
+
+
+
+
+        for(SAQuestion q : CardFragment.listitems) {  //TODO find a way to get the card that was tapped and access that part of the array
+          //  if(q.getCheckBox().isChecked()) // need to create the logic to assign the CheckBox objects to each question
+                contentToSend += q.toString();
+        }
+        intent.putExtra(Intent.EXTRA_TEXT, contentToSend);
+
+        final PackageManager pm = staticContext.getPackageManager();
+        List<ResolveInfo> appsList = pm.queryIntentActivities(intent, 0);
+
+        if(appsList.size() > 0){
+            String packageName = null;
+            String className = null;
+            boolean found = false;
+
+            for(int i = 0; i < appsList.size(); i++){
+                // find bluetooth in the list of activities
+                packageName = appsList.get(i).activityInfo.packageName;
+                if(packageName.equals("com.android.bluetooth")){
+                    className = appsList.get(i).activityInfo.name;
+                    found = true;
+                    break;
+                }
+            }
+            if(! found){
+                Toast.makeText(staticContext, R.string.blu_notfound_inlist,
+                        Toast.LENGTH_SHORT).show();
+//                getActivity().finish();
+            }
+
+            intent.setClassName(packageName, className);
+            startActivity(intent);
         }
     }
 }

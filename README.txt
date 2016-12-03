@@ -7,7 +7,7 @@ android {
     buildToolsVersion "24.0.1"
     defaultConfig {
         applicationId "ilstu.edu.project3bluetooth"
-        minSdkVersion 23
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"

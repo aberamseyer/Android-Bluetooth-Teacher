@@ -1,14 +1,14 @@
-package com.androidtutorialpoint.cardviewtutorial;
+package edu.ilstu;
 
 /**
  * Created by anonymous on 1/15/16.
  */
 public class WonderModel {
 
-    String cardName;
-    int imageResourceId;
-    int isfav;
-    int isturned;
+    private String cardName;
+    private int imageResourceId;
+    private int isfav;
+    private int isturned;
 
     public int getIsturned() {
         return isturned;

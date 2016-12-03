@@ -1,12 +1,9 @@
-package com.androidtutorialpoint.cardviewtutorial;
+package edu.ilstu;
 
         import android.bluetooth.BluetoothAdapter;
-        import android.content.ContentResolver;
-        import android.content.Context;
         import android.content.Intent;
         import android.content.pm.PackageManager;
         import android.content.pm.ResolveInfo;
-        import android.net.Uri;
         import android.os.Bundle;
         import android.support.annotation.Nullable;
         import android.support.v4.app.Fragment;
@@ -18,9 +15,9 @@ package com.androidtutorialpoint.cardviewtutorial;
         import android.view.ViewGroup;
         import android.widget.Button;
         import android.widget.CheckBox;
-        import android.widget.ImageView;
         import android.widget.TextView;
         import android.widget.Toast;
+
         import java.util.ArrayList;
         import java.util.List;
 

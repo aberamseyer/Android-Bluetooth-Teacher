@@ -1,4 +1,4 @@
-package com.androidtutorialpoint.cardviewtutorial;
+package edu.ilstu;
 
 /**
  * Created by Abe on 11/14/2016.

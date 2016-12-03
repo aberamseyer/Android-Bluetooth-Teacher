@@ -16,7 +16,7 @@
         <!--<fragment-->
             <!--android:layout_height="0dp"-->
             <!--android:layout_width="wrap_content"-->
-            <!--android:name="com.androidtutorialpoint.cardviewtutorial.CardFragment"-->
+            <!--android:name="edu.ilstu.CardFragment"-->
             <!--android:id="@+id/questionFragment"-->
             <!--android:layout_weight=".75" />-->
 

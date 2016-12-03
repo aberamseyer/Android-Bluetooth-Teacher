@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-        for(SAQuestion q : CardFragment.itemsToSend) {  // TODO find a way to get the card that was tapped and access that part of the array
+        for(SAQuestion q : CardFragment.itemsToSend) {
             if(q != null) // need to create the logic to assign the CheckBox objects to each question
                 contentToSend += q.toString();
         }

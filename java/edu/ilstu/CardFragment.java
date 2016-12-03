@@ -1,24 +1,31 @@
 package edu.ilstu;
 
-        import android.os.Bundle;
-        import android.support.annotation.Nullable;
-        import android.support.v4.app.Fragment;
-        import android.support.v7.widget.LinearLayoutManager;
-        import android.support.v7.widget.RecyclerView;
-        import android.util.Log;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.CheckBox;
-        import android.widget.TextView;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
-        import java.util.ArrayList;
+import java.util.ArrayList;
 
 
 public class CardFragment extends Fragment {
 
     public static ArrayList<SAQuestion> itemsToSend = new ArrayList<>();
     RecyclerView MyRecyclerView;
+    private SAQuestion[] questions = {
+            new MCQuestion("What grade do you plan to get in this class?", "A", "B", "C", "D"),
+            new MCQuestion("What is your favorite color", "Red", "Green", "Blue", "none of these"),
+            new MCQuestion("how old are you", "18", "19", "20", "21"),
+            new MCQuestion("What is your major?", "Computer Science", "IS", "Something else", "not sure yet"),
+            new MCQuestion("What kind of housing do you live in?", "Dorm", "Apartment", "House", "I'm Homeless")
+    };
 
 
     @Override
@@ -44,19 +51,24 @@ public class CardFragment extends Fragment {
 
 
         MyRecyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(getContext(), MyRecyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
+                new RecyclerItemClickListener(getContext(), MyRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
                         Log.i("card touched", "at position: " + position);
-                        CheckBox cb = (CheckBox)view.findViewById(R.id.cardCheckBox);
-                        if(cb.isChecked()) {
+                        CheckBox cb = (CheckBox) view.findViewById(R.id.cardCheckBox);
+                        if (cb.isChecked()) {
                             cb.setChecked(false);
-//                            itemsToSend.remove();
-                        }
-                        else
+                            itemsToSend.remove(position);
+                            printItemsToLog();
+                        } else {
                             cb.setChecked(true);
+                            itemsToSend.add(position, questions[position]);
+//                            printItemsToLog();
+                        }
                     }
 
-                    @Override public void onLongItemClick(View view, int position) {
+                    @Override
+                    public void onLongItemClick(View view, int position) {
                         onItemClick(view, position);
                     }
                 })
@@ -80,7 +92,7 @@ public class CardFragment extends Fragment {
         }
 
         @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             // create a new view
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.recycle_items, parent, false);
@@ -95,7 +107,7 @@ public class CardFragment extends Fragment {
 
         }
 
-       @Override
+        @Override
         public int getItemCount() {
             return list.size();
         }
@@ -113,11 +125,16 @@ public class CardFragment extends Fragment {
 
     public void initializeList() {
         itemsToSend.clear();
-        // Predefined multiple-choice questions
-        itemsToSend.add(new MCQuestion("What grade do you plan to get in this class?", "A", "B", "C", "D"));
-        itemsToSend.add(new MCQuestion("What is your favorite color", "Red", "Green", "Blue", "none of these"));
-        itemsToSend.add(new MCQuestion("how old are you", "18", "19", "20", "21"));
-        itemsToSend.add(new MCQuestion("What is your major?", "Computer Science", "IS", "Something else", "not sure yet"));
-        itemsToSend.add(new MCQuestion("What kind of housing do you live in?", "Dorm", "Apartment", "House", "I'm Homeless"));
+        // Predefined multiple-choice questions + any others added
+        for (int i = 0; i < questions.length; i++) {
+            itemsToSend.add(i, questions[i]);
+        }
+    }
+
+    private void printItemsToLog() {
+        for(int i = 0; i < itemsToSend.size(); i++) {
+            if(itemsToSend.get(i) != null)
+                Log.i("aramsey", itemsToSend.get(i).toString());
+        }
     }
 }

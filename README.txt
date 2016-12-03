@@ -1,5 +1,3 @@
-build.gradle (Module: app) contents:
-
 apply plugin: 'com.android.application'
 
 android {

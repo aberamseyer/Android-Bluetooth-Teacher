@@ -58,11 +58,11 @@ public class CardFragment extends Fragment {
                         CheckBox cb = (CheckBox) view.findViewById(R.id.cardCheckBox);
                         if (cb.isChecked()) {
                             cb.setChecked(false);
-                            itemsToSend.remove(position);
+                            itemsToSend.set(position, null);
                             printItemsToLog();
                         } else {
                             cb.setChecked(true);
-                            itemsToSend.add(position, questions[position]);
+                            itemsToSend.set(position, questions[position]);
 //                            printItemsToLog();
                         }
                     }
@@ -83,6 +83,7 @@ public class CardFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
     }
+
 
     public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         private ArrayList<SAQuestion> list;
@@ -132,9 +133,13 @@ public class CardFragment extends Fragment {
     }
 
     private void printItemsToLog() {
-        for(int i = 0; i < itemsToSend.size(); i++) {
-            if(itemsToSend.get(i) != null)
+        for (int i = 0; i < itemsToSend.size(); i++) {
+            if (itemsToSend.get(i) != null)
                 Log.i("aramsey", itemsToSend.get(i).toString());
         }
+    }
+
+    public ArrayList<SAQuestion> getItemsToSend() {
+        return itemsToSend;
     }
 }

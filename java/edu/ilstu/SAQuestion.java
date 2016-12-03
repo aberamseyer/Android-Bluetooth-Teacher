@@ -1,7 +1,5 @@
 package edu.ilstu;
 
-import android.widget.CheckBox;
-
 /**
  * Created by Abe on 12/3/2016.
  */

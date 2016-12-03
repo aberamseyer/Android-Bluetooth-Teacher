@@ -119,10 +119,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-
-
         for(SAQuestion q : CardFragment.itemsToSend) {
-            if(q != null) // need to create the logic to assign the CheckBox objects to each question
+            if(q != null)
                 contentToSend += q.toString();
         }
         intent.putExtra(Intent.EXTRA_TEXT, contentToSend);
@@ -147,7 +145,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(! found){
                 Toast.makeText(staticContext, R.string.blu_notfound_inlist,
                         Toast.LENGTH_SHORT).show();
-//                getActivity().finish();
             }
 
             intent.setClassName(packageName, className);

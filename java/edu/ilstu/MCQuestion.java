@@ -8,17 +8,25 @@ import android.widget.CheckBox;
 public class MCQuestion extends SAQuestion {
 
     private String a, b, c, d;
+    private int ans;
 
 
     public MCQuestion() {}
 
-    public MCQuestion(String question, String a, String b, String c, String d) {
+    public MCQuestion(String question, String a, String b, String c, String d, int ans) {
         super(question);
         this.a = a;
         this.b = b;
         this.c = c;
         this.d = d;
+        this.ans = ans;
     }
+
+    public void setAns(int ans) {
+        this.ans = ans;
+    }
+
+    public int getAns() { return ans; }
 
     public void setA(String a) {
         this.a = a;

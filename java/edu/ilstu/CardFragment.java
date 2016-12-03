@@ -17,15 +17,9 @@ import java.util.ArrayList;
 
 public class CardFragment extends Fragment {
 
-    public static ArrayList<SAQuestion> itemsToSend = new ArrayList<>();
+    public static ArrayList<SAQuestion> itemsToSend = new ArrayList<SAQuestion>();
     RecyclerView MyRecyclerView;
-    private SAQuestion[] questions = {
-            new MCQuestion("What grade do you plan to get in this class?", "A", "B", "C", "D"),
-            new MCQuestion("What is your favorite color", "Red", "Green", "Blue", "none of these"),
-            new MCQuestion("how old are you", "18", "19", "20", "21"),
-            new MCQuestion("What is your major?", "Computer Science", "IS", "Something else", "not sure yet"),
-            new MCQuestion("What kind of housing do you live in?", "Dorm", "Apartment", "House", "I'm Homeless")
-    };
+    public static ArrayList<SAQuestion> questions = new ArrayList<SAQuestion>();
 
 
     @Override
@@ -62,7 +56,7 @@ public class CardFragment extends Fragment {
                             printItemsToLog();
                         } else {
                             cb.setChecked(true);
-                            itemsToSend.set(position, questions[position]);
+                            itemsToSend.set(position, questions.get(position));
 //                            printItemsToLog();
                         }
                     }
@@ -127,8 +121,13 @@ public class CardFragment extends Fragment {
     public void initializeList() {
         itemsToSend.clear();
         // Predefined multiple-choice questions + any others added
-        for (int i = 0; i < questions.length; i++) {
-            itemsToSend.add(i, questions[i]);
+        questions.add(new MCQuestion("What grade do you plan to get in this class?", "A", "B", "C", "D", 1));
+        questions.add(new MCQuestion("What is your favorite color", "Red", "Green", "Blue", "none of these", 2));
+        questions.add(new MCQuestion("how old are you", "18", "19", "20", "21", 3));
+        questions.add(new MCQuestion("What is your major?", "Computer Science", "IS", "Something else", "not sure yet", 4));
+        questions.add(new MCQuestion("What kind of housing do you live in?", "Dorm", "Apartment", "House", "I'm Homeless", 2));
+        for (int i = 0; i < questions.size(); i++) {
+            itemsToSend.add(i, questions.get(i));
         }
     }
 

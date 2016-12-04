@@ -25,7 +25,9 @@ public class CardFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initializeList();
+        if(questions.isEmpty()) {
+            initializeList();
+        }
         getActivity().setTitle("Bluetooth Popup Quiz");
     }
 
@@ -38,8 +40,8 @@ public class CardFragment extends Fragment {
         MyRecyclerView.setHasFixedSize(true);
         LinearLayoutManager MyLayoutManager = new LinearLayoutManager(getActivity());
         MyLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        if (itemsToSend.size() > 0 & MyRecyclerView != null) {
-            MyRecyclerView.setAdapter(new MyAdapter(itemsToSend));
+        if (questions.size() > 0 & MyRecyclerView != null) {
+            MyRecyclerView.setAdapter(new MyAdapter(questions));
         }
         MyRecyclerView.setLayoutManager(MyLayoutManager);
 
@@ -52,11 +54,11 @@ public class CardFragment extends Fragment {
                         CheckBox cb = (CheckBox) view.findViewById(R.id.cardCheckBox);
                         if (cb.isChecked()) {
                             cb.setChecked(false);
-                            itemsToSend.set(position, null);
+                            questions.get(position).toggleSelected();
                             printItemsToLog();
                         } else {
                             cb.setChecked(true);
-                            itemsToSend.set(position, questions.get(position));
+                            questions.get(position).toggleSelected();
 //                            printItemsToLog();
                         }
                     }
@@ -99,6 +101,7 @@ public class CardFragment extends Fragment {
         public void onBindViewHolder(final MyViewHolder holder, int position) {
 
             holder.questionTypeText.setText(list.get(position).toString());
+            holder.cb.setChecked(list.get(position).getSelected());
 
         }
 
@@ -111,10 +114,12 @@ public class CardFragment extends Fragment {
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView questionTypeText;
+        public CheckBox cb;
 
         public MyViewHolder(View v) {
             super(v);
             questionTypeText = (TextView) v.findViewById(R.id.questionTypeText);
+            cb = (CheckBox) v.findViewById(R.id.cardCheckBox);
         }
     }
 
@@ -126,19 +131,25 @@ public class CardFragment extends Fragment {
         questions.add(new MCQuestion("how old are you", "18", "19", "20", "21", 3));
         questions.add(new MCQuestion("What is your major?", "Computer Science", "IS", "Something else", "not sure yet", 4));
         questions.add(new MCQuestion("What kind of housing do you live in?", "Dorm", "Apartment", "House", "I'm Homeless", 2));
-        for (int i = 0; i < questions.size(); i++) {
-            itemsToSend.add(i, questions.get(i));
-        }
     }
 
     private void printItemsToLog() {
-        for (int i = 0; i < itemsToSend.size(); i++) {
-            if (itemsToSend.get(i) != null)
-                Log.i("aramsey", itemsToSend.get(i).toString());
+        for (int i = 0; i < questions.size(); i++) {
+            if (questions.get(i).getSelected())
+                Log.i("aramsey", questions.get(i).toString());
         }
     }
 
     public ArrayList<SAQuestion> getItemsToSend() {
+        ArrayList<SAQuestion> itemsToSend = new ArrayList<SAQuestion>();
+        for(SAQuestion question : questions) {
+            if(question.getSelected()) {
+                itemsToSend.add(question);
+            }
+            else {
+                itemsToSend.add(null);
+            }
+        }
         return itemsToSend;
     }
 }

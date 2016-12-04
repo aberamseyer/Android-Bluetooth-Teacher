@@ -64,6 +64,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // Save UI state changes to the savedInstanceState.
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted.
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Restore UI state from the savedInstanceState.
+        // This bundle has also been passed to onCreate.
+    }
+
     public void animateFab() {
         if(isFabOpen) {
             fab.startAnimation(rotate_backward);
@@ -88,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.fab:
                 animateFab();
-                Log.i("aramsey", "Big fAB tapped");
+                Log.i("aramsey", "Big fab tapped");
                 break;
             case R.id.fab1edit:
                 animateFab();

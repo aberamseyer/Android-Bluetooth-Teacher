@@ -10,9 +10,6 @@ public class MCQuestion extends SAQuestion {
     private String a, b, c, d;
     private int ans;
 
-
-    public MCQuestion() {}
-
     public MCQuestion(String question, String a, String b, String c, String d, int ans) {
         super(question);
         this.a = a;

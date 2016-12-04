@@ -6,12 +6,11 @@ package edu.ilstu;
 
 public class SAQuestion {
     private String question;
-
-    public SAQuestion() {
-    }
+    private boolean selected;
 
     public SAQuestion(String question) {
         this.question = question;
+        selected = true;
     }
 
     public String getQuestion() {
@@ -27,6 +26,14 @@ public class SAQuestion {
             question = question.substring(0, question.length()-1);
         }
         question = question.substring(0, 1).toUpperCase() + question.substring(1); // capitalize the first letter
+    }
+
+    public void toggleSelected() {
+        selected = !selected;
+    }
+
+    public boolean getSelected() {
+        return selected;
     }
 
     @Override

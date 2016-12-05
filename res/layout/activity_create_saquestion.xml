@@ -11,7 +11,7 @@
     tools:context="edu.ilstu.createSAQuestion">
 
     <TextView
-        android:text="After you finish Making your question click submit"
+        android:text="After you finish Making your question, click submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/questionBox"
-        tools:text="@string/userQuestion"
+        tools:hint="@string/userQuestion"
         android:textSize="18sp"
         android:layout_alignWithParentIfMissing="false"
         android:layout_below="@+id/textView"
@@ -41,73 +41,105 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="14dp"
         android:layout_below="@id/questionBox"
-        android:text="Select this for multiple choice question" />
+        android:text="Multiple Choice?" />
 
-    <GridLayout
-        android:id="@+id/gridLayout"
+    <TextView
+        android:text="Select button next to correct answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/McCheck"
+        android:id="@+id/boxDialogue"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        android:layout_gravity="center" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/McCheck"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        android:columnCount="8"
-        android:visibility="invisible">
+        android:visibility="invisible"
+        android:layout_below="@+id/boxDialogue">
 
-        <TextView
-            android:text="Select box next to correct answer"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/boxDialogue"
-            android:textSize="18sp"
-            android:layout_gravity="center"
-            android:layout_columnSpan="8"/>
+            android:orientation="vertical">
 
-        <EditText
-            android:hint="@string/answerDialogue"
-            android:id="@+id/mcAnswer1"
-            android:layout_columnSpan="7"/>
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/cbAnswer1"
-            android:checked="false"
-            android:layout_gravity="right"
-            android:layout_columnSpan="1"/>
+                <RadioButton
+                    android:id="@+id/cbAnswer1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:layout_marginTop="8dp" />
 
-        <EditText
-            android:hint="@string/answerDialogue"
-            android:id="@+id/mcAnswer2"
-            android:layout_columnSpan="7"/>
+                <RadioButton
+                    android:id="@+id/cbAnswer2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:checked="true"
+                    android:layout_marginTop="10dp" />
 
-        <CheckBox
-            android:id="@+id/cbAnswer2"
-            android:checked="true"
-            android:layout_gravity="right"
-            android:layout_columnSpan="1"/>
+                <RadioButton
+                    android:id="@+id/cbAnswer3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:checked="false"
+                    android:layout_marginTop="12dp" />
 
-        <EditText
-            android:hint="@string/answerDialogue"
-            android:id="@+id/mcAnswer3"
-            android:layout_columnSpan="7"/>
+                <RadioButton
+                    android:id="@+id/cbAnswer4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:checked="false"
+                    android:layout_marginTop="14dp" />
 
-        <CheckBox
-            android:id="@+id/cbAnswer3"
-            android:checked="false"
-            android:layout_gravity="right"
-            android:layout_columnSpan="1"/>
+            </RadioGroup>
 
-        <EditText
-            android:hint="@string/answerDialogue"
-            android:id="@+id/mcAnswer4"
-            android:layout_columnSpan="7"/>
+        </LinearLayout>
 
-        <CheckBox
-            android:id="@+id/cbAnswer4"
-            android:checked="false"
-            android:layout_gravity="right"
-            android:layout_columnSpan="1"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-    </GridLayout>
+            <EditText
+                android:id="@+id/mcAnswer1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:hint="@string/answerDialogue" />
 
+            <EditText
+                android:id="@+id/mcAnswer2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:hint="@string/answerDialogue" />
+
+            <EditText
+                android:id="@+id/mcAnswer3"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:hint="@string/answerDialogue" />
+
+            <EditText
+                android:id="@+id/mcAnswer4"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:hint="@string/answerDialogue" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <Button
         android:text="Submit"

@@ -1,61 +1,59 @@
 package edu.ilstu;
 
-import android.provider.Settings;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.GridLayout;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class createSAQuestion extends AppCompatActivity {
 
-    private CheckBox[] answerBoxes=new CheckBox[4];
-
     private EditText questionBox, answerText1, answerText2, answerText3, answerText4;
     private Button submitButton;
-    private CheckBox mc, answerBox1, answerBox2, answerBox3, answerBox4;
-    private GridLayout gridLayout;
+    private CheckBox mc;
+    private RadioButton answerBox1, answerBox2, answerBox3, answerBox4;
+    private RadioGroup rg;
+    private LinearLayout linearLayout;
+    private TextView tv;
 
-    String selectedQ;
+    String selectedQ = "2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_saquestion);
-        gridLayout = (GridLayout)findViewById(R.id.gridLayout);
+        linearLayout = (LinearLayout)findViewById(R.id.linearLayout);
         questionBox = (EditText)findViewById(R.id.questionBox);
         answerText1 = (EditText)findViewById(R.id.mcAnswer1);
         answerText2 = (EditText)findViewById(R.id.mcAnswer2);
         answerText3 = (EditText)findViewById(R.id.mcAnswer3);
         answerText4 = (EditText)findViewById(R.id.mcAnswer4);
         submitButton = (Button)findViewById(R.id.submitButton);
-        mc = (CheckBox)findViewById(R.id.McCheck);
-        answerBox1 = (CheckBox)findViewById(R.id.cbAnswer1);
-        answerBox2 = (CheckBox)findViewById(R.id.cbAnswer2);
-        answerBox3 = (CheckBox)findViewById(R.id.cbAnswer3);
-        answerBox4 = (CheckBox)findViewById(R.id.cbAnswer4);
-        answerBoxes[0] = answerBox1;
-        answerBoxes[1] = answerBox2;
-        answerBoxes[2] = answerBox3;
-        answerBoxes[3] = answerBox4;
+        mc = (CheckBox) findViewById(R.id.McCheck);
+        answerBox1 = (RadioButton) findViewById(R.id.cbAnswer1);
+        answerBox2 = (RadioButton) findViewById(R.id.cbAnswer2);
+        answerBox3 = (RadioButton) findViewById(R.id.cbAnswer3);
+        answerBox4 = (RadioButton) findViewById(R.id.cbAnswer4);
+        tv = (TextView)findViewById(R.id.boxDialogue);
+        rg = (RadioGroup)findViewById(R.id.radioGroup);
 
         mc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mc.isChecked()) {
-                    gridLayout.setVisibility(View.VISIBLE);
+                    linearLayout.setVisibility(View.VISIBLE);
+                    tv.setVisibility(View.VISIBLE);
                     Log.i("aramsey", "made gridlayout visible");
                 } else {
-                    gridLayout.setVisibility(View.INVISIBLE);
+                    linearLayout.setVisibility(View.INVISIBLE);
+                    tv.setVisibility(View.INVISIBLE);
                     Log.i("aramsey", "made gridlayout visible");
                 }
             }
@@ -63,59 +61,51 @@ public class createSAQuestion extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mc.isChecked()) {
-                    for(int i = 0; i < 4; i++) {
-                        if(answerBoxes[i].isChecked())
-                            switch(i) {
-                                case 0:
+                if(!questionBox.getText().toString().equals("")) {
+                    if (mc.isChecked()) {
+                        if(!(answerText1.getText().toString().equals("") || answerText2.getText().toString().equals("") ||
+                                answerText3.getText().toString().equals("") || answerText4.getText().toString().equals(""))) {
+                            switch(rg.getCheckedRadioButtonId()) {
+                                case R.id.cbAnswer1:
                                     selectedQ = "a";
                                     break;
-                                case 1:
+                                case R.id.cbAnswer2:
                                     selectedQ = "b";
                                     break;
-                                case 2: selectedQ = "c";
+                                case R.id.cbAnswer3:
+                                    selectedQ = "c";
                                     break;
-                                case 3: selectedQ = "d";
+                                case R.id.cbAnswer4:
+                                    selectedQ = "d";
                                     break;
-                                default:
-                                    selectedQ = "a";
                             }
+                            CardFragment.questions.add(new MCQuestion(questionBox.getText().toString(),
+                                    answerText1.getText().toString(),
+                                    answerText2.getText().toString(),
+                                    answerText3.getText().toString(),
+                                    answerText4.getText().toString(),
+                                    selectedQ));
+                            CardFragment.myAdapter.notifyDataSetChanged();
+                            finish();
+                        }
+                        else {
+                            CharSequence cs = "Specify all answers";
+                            Toast.makeText(Project3Bluetooth.getAppContext(), cs, Toast.LENGTH_SHORT).show();
+
+                        }
+                    } else {
+                        CardFragment.questions.add(new SAQuestion(questionBox.getText().toString()));
+                        CardFragment.myAdapter.notifyDataSetChanged();
+                        finish();
                     }
-                    CardFragment.questions.add(new MCQuestion(questionBox.getText().toString(),
-                                                              answerText1.getText().toString(),
-                                                              answerText2.getText().toString(),
-                                                              answerText3.getText().toString(),
-                                                              answerText4.getText().toString(),
-                                                              selectedQ));
                 }
                 else {
-                    CardFragment.questions.add(new SAQuestion(questionBox.getText().toString()));
+                    CharSequence cs = "Empty question not created";
+                    Toast.makeText(Project3Bluetooth.getAppContext(), cs, Toast.LENGTH_SHORT).show();
+                    finish();
                 }
-                CardFragment.myAdapter.notifyDataSetChanged();
-                finish();
             }
         });
     }
 
-//    /**
-//     * called upon answer box selection
-//     * makes sure only one box is selected
-//     * @param boxIndex
-//     */
-//    private void answerBoxToggle(int boxIndex)
-//    {
-//        Log.i("aramsey", "answer Box "+ boxIndex+" tapped.");
-//        selectedQ = boxIndex;
-//        for(int i=0;i<4;i++)
-//        {
-//            if(i==boxIndex)
-//                answerBoxes[i].setChecked(true);
-//            else
-//                answerBoxes[i].setChecked(false);
-//        }
-//
-//
-//
-//
-//    }
 }

@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         fab = (FloatingActionButton)findViewById(R.id.fab);
         fab1 = (FloatingActionButton)findViewById(R.id.fab1edit);
         fab2 = (FloatingActionButton)findViewById(R.id.fab2send);
@@ -108,16 +109,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.fab1edit:
                 animateFab();
                 Log.i("aramsey", "fab 1 tapped");
-                //TODO create an activity/layout that can add a written question
-//                Intent i = new Intent(this,AddQuestionActivity.class);
-//                startActivity(i);
+                Intent i = new Intent(this,createSAQuestion.class);
+                startActivity(i);
+
                 break;
             case R.id.fab2send:
                 animateFab();
                 Log.i("aramsey", "fab 2 tapped");
                 sendQuestions(v);
-//                i = new Intent(this,CreateTimerActivity.class);
-//                startActivity(i);
+//                TODO i think the class from this this intent parameter is'nt right
+                   i = new Intent(this,createSAQuestion.class);
+                   startActivity(i);
                 break;
             default:
                 Log.i("aramsey", "idk what you tapped");

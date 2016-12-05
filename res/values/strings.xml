@@ -6,6 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_create_saquestion">createSAQuestion</string>
-    <string name="userQuestion" >Type Question here</string>
+    <string name="userQuestion">Type Question here</string>
     <string name="answerDialogue">Type possible answer here</string>
 </resources>

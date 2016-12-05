@@ -117,10 +117,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 animateFab();
                 Log.i("aramsey", "fab 2 tapped");
                 sendQuestions(v);
-                i = new Intent(this, createSAQuestion.class);
-                startActivity(i);
-                Log.i("aramsey", "back in main activity");
-
                 break;
             default:
                 Log.i("aramsey", "idk what you tapped");
@@ -137,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Context staticContext = Project3Bluetooth.getAppContext();
         String contentToSend = "";
-        for(SAQuestion q : CardFragment.itemsToSend) {
+        for(SAQuestion q : CardFragment.questions) {
             if(q != null)
                 contentToSend += q.toString();
         }

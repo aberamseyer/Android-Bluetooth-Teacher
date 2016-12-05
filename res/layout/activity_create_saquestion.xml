@@ -27,7 +27,6 @@
         tools:text="@string/userQuestion"
         android:textSize="18sp"
         android:layout_alignWithParentIfMissing="false"
-        android:textAlignment="center"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -55,7 +54,7 @@
         android:visibility="invisible">
 
         <TextView
-            android:text="Select box next to correct answer(s) "
+            android:text="Select box next to correct answer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/boxDialogue"
@@ -64,7 +63,7 @@
             android:layout_columnSpan="8"/>
 
         <EditText
-            android:text="@string/answerDialogue"
+            android:hint="@string/answerDialogue"
             android:id="@+id/mcAnswer1"
             android:layout_columnSpan="7"/>
 
@@ -75,7 +74,7 @@
             android:layout_columnSpan="1"/>
 
         <EditText
-            android:text="@string/answerDialogue"
+            android:hint="@string/answerDialogue"
             android:id="@+id/mcAnswer2"
             android:layout_columnSpan="7"/>
 
@@ -86,7 +85,7 @@
             android:layout_columnSpan="1"/>
 
         <EditText
-            android:text="@string/answerDialogue"
+            android:hint="@string/answerDialogue"
             android:id="@+id/mcAnswer3"
             android:layout_columnSpan="7"/>
 
@@ -97,7 +96,7 @@
             android:layout_columnSpan="1"/>
 
         <EditText
-            android:text="@string/answerDialogue"
+            android:hint="@string/answerDialogue"
             android:id="@+id/mcAnswer4"
             android:layout_columnSpan="7"/>
 
@@ -116,6 +115,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/submitButton"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"/>
 
 </RelativeLayout>

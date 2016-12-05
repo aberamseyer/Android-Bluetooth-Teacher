@@ -6,10 +6,18 @@ package edu.ilstu;
 
 public class SAQuestion {
     private String question;
+    protected String ans;
     private boolean selected;
 
     public SAQuestion(String question) {
         this.question = question;
+        selected = true;
+        ans = null;
+    }
+
+    public SAQuestion(String question, String ans) {
+        this.question = question;
+        this.ans = ans;
         selected = true;
     }
 
@@ -19,6 +27,14 @@ public class SAQuestion {
 
     public void setQuestion(String question) {
         this.question = question;
+    }
+
+    public String getAns() {
+        return ans;
+    }
+
+    public void setAns(String ans) {
+        this.ans = ans;
     }
 
     public void formatQuestion() {
@@ -39,5 +55,13 @@ public class SAQuestion {
     @Override
     public String toString() {
         return "" + question + "?\n";
+    }
+
+    public String getSendString() {
+        return "0," + getQuestion() + "\n";
+    }
+
+    public String getReturnString() {
+        return "1," + getQuestion() + "," + ans + "\n";
     }
 }

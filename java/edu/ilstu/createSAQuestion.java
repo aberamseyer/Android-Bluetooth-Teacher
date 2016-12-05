@@ -15,7 +15,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class createSAQuestion extends AppCompatActivity {
 
@@ -26,7 +25,7 @@ public class createSAQuestion extends AppCompatActivity {
     private CheckBox mc, answerBox1, answerBox2, answerBox3, answerBox4;
     private GridLayout gridLayout;
 
-    int selectedQ=2;
+    String selectedQ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,27 +63,36 @@ public class createSAQuestion extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(questionBox.getText().toString().length() <= 140) {
-                    if (mc.isChecked()) {
-                        for (int i = 0; i < 4; i++) {
-                            if (answerBoxes[i].isChecked())
-                                selectedQ = i + 1;
-                        }
-                        CardFragment.questions.add(new MCQuestion(questionBox.getText().toString(),
-                                answerText1.getText().toString(),
-                                answerText2.getText().toString(),
-                                answerText3.getText().toString(),
-                                answerText4.getText().toString(),
-                                selectedQ));
-                    } else {
-                        CardFragment.questions.add(new SAQuestion(questionBox.getText().toString()));
+                if(mc.isChecked()) {
+                    for(int i = 0; i < 4; i++) {
+                        if(answerBoxes[i].isChecked())
+                            switch(i) {
+                                case 0:
+                                    selectedQ = "a";
+                                    break;
+                                case 1:
+                                    selectedQ = "b";
+                                    break;
+                                case 2: selectedQ = "c";
+                                    break;
+                                case 3: selectedQ = "d";
+                                    break;
+                                default:
+                                    selectedQ = "a";
+                            }
                     }
-                    CardFragment.myAdapter.notifyDataSetChanged();
-                    finish();
-                } else {
-                    CharSequence cs = "Question too long, please limit to less than 140 characters";
-                    Toast.makeText(Project3Bluetooth.getAppContext(), cs, Toast.LENGTH_LONG).show();
+                    CardFragment.questions.add(new MCQuestion(questionBox.getText().toString(),
+                                                              answerText1.getText().toString(),
+                                                              answerText2.getText().toString(),
+                                                              answerText3.getText().toString(),
+                                                              answerText4.getText().toString(),
+                                                              selectedQ));
                 }
+                else {
+                    CardFragment.questions.add(new SAQuestion(questionBox.getText().toString()));
+                }
+                CardFragment.myAdapter.notifyDataSetChanged();
+                finish();
             }
         });
     }

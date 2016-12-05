@@ -8,4 +8,5 @@
     <string name="title_activity_create_saquestion">createSAQuestion</string>
     <string name="userQuestion">Type Question here</string>
     <string name="answerDialogue">Type possible answer here</string>
+    <string name="file_permission_denied">Cannot send quiz without permission</string>
 </resources>

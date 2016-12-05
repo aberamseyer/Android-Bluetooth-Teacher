@@ -58,7 +58,7 @@ public class CardFragment extends Fragment {
                         if (cb.isChecked()) {
                             cb.setChecked(false);
                             questions.get(position).toggleSelected();
-                            printItemsToLog();
+//                            printItemsToLog();
                         } else {
                             cb.setChecked(true);
                             questions.get(position).toggleSelected();
@@ -127,13 +127,13 @@ public class CardFragment extends Fragment {
     }
 
     public void initializeList() {
-        itemsToSend.clear();
+        questions.clear();
         // Predefined multiple-choice questions + any others added
-        questions.add(new MCQuestion("What grade do you plan to get in this class?", "A", "B", "C", "D", 1));
-        questions.add(new MCQuestion("What is your favorite color", "Red", "Green", "Blue", "none of these", 2));
-        questions.add(new MCQuestion("how old are you", "18", "19", "20", "21", 3));
-        questions.add(new MCQuestion("What is your major?", "Computer Science", "IS", "Something else", "not sure yet", 4));
-        questions.add(new MCQuestion("What kind of housing do you live in?", "Dorm", "Apartment", "House", "I'm Homeless", 2));
+        questions.add(new MCQuestion("What grade do you plan to get in this class?", "A", "B", "C", "D", "a"));
+        questions.add(new MCQuestion("What is your favorite color", "Red", "Green", "Blue", "none of these", "b"));
+        questions.add(new MCQuestion("how old are you", "18", "19", "20", "21", "c"));
+        questions.add(new MCQuestion("What is your major?", "Computer Science", "IS", "Something else", "not sure yet", "d"));
+        questions.add(new MCQuestion("What kind of housing do you live in?", "Dorm", "Apartment", "House", "I'm Homeless", "e"));
     }
 
     private void printItemsToLog() {

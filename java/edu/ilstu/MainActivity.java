@@ -1,5 +1,6 @@
 package edu.ilstu;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +11,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.FileObserver;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +31,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL = 0;
     private FloatingActionButton fab, fab1, fab2;
     private Boolean isFabOpen = false;
     private Animation fab1_open, fab2_open, fab_close, rotate_forward, rotate_backward;
@@ -100,6 +104,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        Context staticContext = Project3Bluetooth.getAppContext();
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else {
+                    Toast.makeText(staticContext, R.string.file_permission_denied,
+                            Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab:
@@ -116,6 +142,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.fab2send:
                 animateFab();
                 Log.i("aramsey", "fab 2 tapped");
+                // Here, thisActivity is the current activity
+                if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL);
+                    break;
+                }
                 sendQuestions(v);
                 break;
             default:
@@ -134,8 +170,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Context staticContext = Project3Bluetooth.getAppContext();
         String contentToSend = "";
         for(SAQuestion q : CardFragment.questions) {
-            if(q != null)
-                contentToSend += q.toString();
+            if(q.getSelected())
+                contentToSend += q.getSendString();
         }
 
 

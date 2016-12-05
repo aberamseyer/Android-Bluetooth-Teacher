@@ -10,124 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.ilstu.createSAQuestion">
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/McCheck1"
-        android:layout_alignTop="@+id/McQ1"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:checked="false" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/McCheck3"
-        android:layout_alignTop="@+id/McQ3"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:checked="true" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/McCheck4"
-        android:layout_alignTop="@+id/McQ4"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/McCheck"
-        android:layout_marginBottom="14dp"
-        android:layout_above="@+id/boxDialogue"
-        android:layout_alignLeft="@+id/McQ1"
-        android:layout_alignStart="@+id/McQ1" />
-
-    <TextView
-        android:text="Select this box for Multiple choice Question"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/boxDialogue"
-        android:textSize="18sp"
-        android:layout_above="@+id/McCheck"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="11dp" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/McCheck2"
-        android:layout_alignTop="@+id/McQ2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/McQ4"
-        tools:text="@string/answerDialogue"
-        android:textSize="18sp"
-        android:layout_below="@+id/McCheck3"
-        android:layout_alignLeft="@+id/McQ3"
-        android:layout_alignStart="@+id/McQ3"
-        android:layout_marginTop="11dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/McQ3"
-        tools:text="@string/answerDialogue"
-        android:textSize="18sp"
-        android:layout_below="@+id/McCheck2"
-        android:layout_alignLeft="@+id/McQ2"
-        android:layout_alignStart="@+id/McQ2"
-        android:layout_marginTop="11dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/McQ2"
-        tools:text="@string/answerDialogue"
-        android:textSize="18sp"
-        android:layout_below="@+id/McCheck1"
-        android:layout_alignLeft="@+id/McQ1"
-        android:layout_alignStart="@+id/McQ1"
-        android:layout_marginTop="11dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="153dp"
-        android:id="@+id/McQ1"
-        tools:text="@string/answerDialogue"
-        android:textSize="18sp"
-        android:layout_above="@+id/submitButton"
-        android:layout_toLeftOf="@+id/submitButton"
-        android:layout_toStartOf="@+id/submitButton" />
-
-    <TextView
-        android:text="Select box next to correct answer(s) "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/boxDialogue"
-        android:textSize="18sp"
-        android:layout_marginBottom="25dp"
-        android:layout_above="@+id/McCheck1"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:text="Submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/submitButton"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/McCheck4"
-        android:layout_toStartOf="@+id/McCheck4" />
-
     <TextView
         android:text="After you finish Making your question click submit"
         android:layout_width="wrap_content"
@@ -138,7 +20,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/questionBox"
@@ -152,5 +34,88 @@
         android:layout_marginTop="15dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/McCheck"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="14dp"
+        android:layout_below="@id/questionBox"
+        android:text="Select this for multiple choice question" />
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/McCheck"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:columnCount="8"
+        android:visibility="invisible">
+
+        <TextView
+            android:text="Select box next to correct answer(s) "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/boxDialogue"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:layout_columnSpan="8"/>
+
+        <EditText
+            android:text="@string/answerDialogue"
+            android:id="@+id/mcAnswer1"
+            android:layout_columnSpan="7"/>
+
+        <CheckBox
+            android:id="@+id/cbAnswer1"
+            android:checked="false"
+            android:layout_gravity="right"
+            android:layout_columnSpan="1"/>
+
+        <EditText
+            android:text="@string/answerDialogue"
+            android:id="@+id/mcAnswer2"
+            android:layout_columnSpan="7"/>
+
+        <CheckBox
+            android:id="@+id/cbAnswer2"
+            android:checked="true"
+            android:layout_gravity="right"
+            android:layout_columnSpan="1"/>
+
+        <EditText
+            android:text="@string/answerDialogue"
+            android:id="@+id/mcAnswer3"
+            android:layout_columnSpan="7"/>
+
+        <CheckBox
+            android:id="@+id/cbAnswer3"
+            android:checked="false"
+            android:layout_gravity="right"
+            android:layout_columnSpan="1"/>
+
+        <EditText
+            android:text="@string/answerDialogue"
+            android:id="@+id/mcAnswer4"
+            android:layout_columnSpan="7"/>
+
+        <CheckBox
+            android:id="@+id/cbAnswer4"
+            android:checked="false"
+            android:layout_gravity="right"
+            android:layout_columnSpan="1"/>
+
+    </GridLayout>
+
+
+    <Button
+        android:text="Submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/submitButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
 
 </RelativeLayout>

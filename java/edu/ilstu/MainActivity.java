@@ -117,9 +117,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 animateFab();
                 Log.i("aramsey", "fab 2 tapped");
                 sendQuestions(v);
-//                TODO i think the class from this this intent parameter is'nt right
-                   i = new Intent(this,createSAQuestion.class);
-                   startActivity(i);
+                i = new Intent(this, createSAQuestion.class);
+                startActivity(i);
+                Log.i("aramsey", "back in main activity");
+
                 break;
             default:
                 Log.i("aramsey", "idk what you tapped");

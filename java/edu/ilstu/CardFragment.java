@@ -20,6 +20,7 @@ public class CardFragment extends Fragment {
     public static ArrayList<SAQuestion> itemsToSend = new ArrayList<SAQuestion>();
     RecyclerView MyRecyclerView;
     public static ArrayList<SAQuestion> questions = new ArrayList<SAQuestion>();
+    public static MyAdapter myAdapter;
 
 
     @Override
@@ -40,8 +41,10 @@ public class CardFragment extends Fragment {
         MyRecyclerView.setHasFixedSize(true);
         LinearLayoutManager MyLayoutManager = new LinearLayoutManager(getActivity());
         MyLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        myAdapter = null;
         if (questions.size() > 0 & MyRecyclerView != null) {
-            MyRecyclerView.setAdapter(new MyAdapter(questions));
+            myAdapter = new MyAdapter((questions));
+            MyRecyclerView.setAdapter(myAdapter);
         }
         MyRecyclerView.setLayoutManager(MyLayoutManager);
 

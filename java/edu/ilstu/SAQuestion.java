@@ -2,6 +2,7 @@ package edu.ilstu;
 
 /**
  * Created by Abe on 12/3/2016.
+ * see student app for comments on this
  */
 
 public class SAQuestion {

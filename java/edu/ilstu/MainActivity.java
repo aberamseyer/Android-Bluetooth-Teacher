@@ -35,13 +35,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FloatingActionButton fab, fab1, fab2;
     private Boolean isFabOpen = false;
     private Animation fab1_open, fab2_open, fab_close, rotate_forward, rotate_backward;
+    private static final String TAG = "debug";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        // FABs and animations for them, see the res/anim folder for the xmls
         fab = (FloatingActionButton)findViewById(R.id.fab);
         fab1 = (FloatingActionButton)findViewById(R.id.fab1edit);
         fab2 = (FloatingActionButton)findViewById(R.id.fab2send);
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // This bundle has also been passed to onCreate.
     }
 
+    // determine whether the FAB menu is open or not, animate appropriately
     public void animateFab() {
         if(isFabOpen) {
             fab.startAnimation(rotate_backward);
@@ -130,18 +132,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.fab:
                 animateFab();
-                Log.i("aramsey", "Big fab tapped");
+                Log.i(TAG, "Big fab tapped");
                 break;
             case R.id.fab1edit:
                 animateFab();
-                Log.i("aramsey", "fab 1 tapped");
+                Log.i(TAG, "fab 1 tapped");
                 Intent i = new Intent(this,createSAQuestion.class);
                 startActivity(i);
 
                 break;
             case R.id.fab2send:
                 animateFab();
-                Log.i("aramsey", "fab 2 tapped");
+                Log.i(TAG, "fab 2 tapped");
                 // Here, thisActivity is the current activity
                 if (ContextCompat.checkSelfPermission(this,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -155,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sendQuestions(v);
                 break;
             default:
-                Log.i("aramsey", "idk what you tapped");
+                Log.i(TAG, "idk what you tapped");
                 break;
         }
     }
@@ -165,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.i("blutooth", "bt button tapped");
 
         BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
-        Log.i("aramsey", btAdapter.toString());
+        Log.i(TAG, btAdapter.toString());
 
         Context staticContext = Project3Bluetooth.getAppContext();
         String contentToSend = "";
@@ -226,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 sendIntent.setClassName(packageName, className);
                 startActivity(sendIntent);
-                Log.i("aramsey", "supposedly sent the file");
+                Log.i(TAG, "supposedly sent the file");
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

@@ -4,6 +4,7 @@ import android.widget.CheckBox;
 
 /**
  * Created by anonymous on 1/15/16.
+ * see student app for comments on this
  */
 public class MCQuestion extends SAQuestion {
 

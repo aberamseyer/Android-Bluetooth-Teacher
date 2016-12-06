@@ -13,6 +13,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/*
+    this is the activity for creating additional questions
+ */
 public class createSAQuestion extends AppCompatActivity {
 
     private EditText questionBox, answerText1, answerText2, answerText3, answerText4;
@@ -61,7 +64,7 @@ public class createSAQuestion extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!questionBox.getText().toString().equals("")) {
+                if(!questionBox.getText().toString().equals("")) { // some error checking to make sure fields are filled
                     if (mc.isChecked()) {
                         if(!(answerText1.getText().toString().equals("") || answerText2.getText().toString().equals("") ||
                                 answerText3.getText().toString().equals("") || answerText4.getText().toString().equals(""))) {

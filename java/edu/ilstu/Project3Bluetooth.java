@@ -5,6 +5,7 @@ import android.content.Context;
 
 /**
  * Created by Abe on 12/3/2016.
+ * see student app for comments on this. basically for context
  */
 
 public class Project3Bluetooth extends Application {

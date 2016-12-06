@@ -48,7 +48,8 @@ public class CardFragment extends Fragment {
         }
         MyRecyclerView.setLayoutManager(MyLayoutManager);
 
-
+        // allows us to figure out the position of the card that was touched so we can remove/add the the appropriate question
+        // to the questions array
         MyRecyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), MyRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
@@ -58,11 +59,9 @@ public class CardFragment extends Fragment {
                         if (cb.isChecked()) {
                             cb.setChecked(false);
                             questions.get(position).toggleSelected();
-//                            printItemsToLog();
                         } else {
                             cb.setChecked(true);
                             questions.get(position).toggleSelected();
-//                            printItemsToLog();
                         }
                     }
 
@@ -136,12 +135,6 @@ public class CardFragment extends Fragment {
         questions.add(new MCQuestion("What kind of housing do you live in?", "Dorm", "Apartment", "House", "I'm Homeless", "d"));
     }
 
-    private void printItemsToLog() {
-        for (int i = 0; i < questions.size(); i++) {
-            if (questions.get(i).getSelected())
-                Log.i("aramsey", questions.get(i).toString());
-        }
-    }
 
     public ArrayList<SAQuestion> getItemsToSend() {
         ArrayList<SAQuestion> itemsToSend = new ArrayList<SAQuestion>();

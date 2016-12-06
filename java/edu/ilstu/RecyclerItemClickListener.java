@@ -12,6 +12,9 @@ import android.view.View;
 
 /*
     pretty sure this class makes it so you can record the position of the item clicked on. Honestly I forgot.
+
+    I think it actually defines a listener for each individual question card so tapping the card will toggle
+    the checkbox, not just tapping the checkbox
  */
 public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
     private OnItemClickListener mListener;
